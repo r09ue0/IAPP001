@@ -3,14 +3,14 @@ public class Game
     private final int END = 10;
     private Player players[];
     private Dice dice = new Dice();
-    
+
     public Game()
     {
         setup();
         play();
         display();
     }
-    
+
     private void setup()
     {
         players = new Player[readSize()];
@@ -19,19 +19,19 @@ public class Game
             players[i] = new Player(readName());
         }
     }
-    
+
     private int readSize()
     {
         System.out.println("How many players?");
         return In.nextInt();
     }
-    
+
     private String readName()
     {
         System.out.print("Enter player name: ");
         return In.nextLine();
     }
-    
+
     private void play()
     {
         do
@@ -43,7 +43,7 @@ public class Game
         }
         while(!isGameOver());
     }
-    
+
     private boolean isGameOver()
     {
         for(int i=0; i<players.length; i++)
@@ -53,7 +53,7 @@ public class Game
         }
         return false;
     }
-    
+
     private void display()
     {
         System.out.println("Game Over");
@@ -61,5 +61,22 @@ public class Game
         {
             System.out.println("\tPlayer "+ (i+1) +" Score: " + players[i].toString());
         }
+        System.out.println(winner());
+    }
+
+    private String winner()
+    {
+        return "Winner Name: "+ findWinner().getName() +"\nWinner Score: "+ findWinner().getScore();
+    }
+
+    private Player findWinner()
+    {
+        Player winner = players[0];
+        for(int i=0; i<players.length; i++)
+        {
+            if(players[i].getScore() > winner.getScore())
+                winner = players[i];
+        }
+        return winner;
     }
 }
